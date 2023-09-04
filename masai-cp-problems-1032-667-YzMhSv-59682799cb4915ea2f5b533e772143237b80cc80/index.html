@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Management</title>
+    <style>
+      /* All necessery styles here  */
+    </style>
+  </head>
+  <body>
+    <div id="create">
+      <h1>Add Stock in Portfolio</h1>
+      <form>
+        <input placeholder="Company Name" id="name" type="text" />
+        <select id="category">
+          <option value="">Stock Category</option>
+          <option value="Large Cap">Large Cap</option>
+          <option value="Mid Cap">Mid Cap</option>
+          <option value="Small Cap">Small Cap</option>
+        </select>
+        <input type="text" id="sector" placeholder="Sector" />
+        <input placeholder="Stock Price" id="price" type="number" />
+        <input placeholder="Quantity" id="quantity" type="number" />
+        <label for="">Add Date:- </label>
+        <input type="date" id="addDate" />
+        <input type="submit" value="Add Stock" />
+      </form>
+    </div>
+    <h1 id="total-price">Total Price:- <span>0</span></h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Stock Name</th>
+          <th>Category</th>
+          <th>Sector</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total Cost</th>
+          <th>Add Date</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Append the rows here using JS  -->
+      </tbody>
+    </table>
+  </body>
+  <script>
+    // Write all necessery JS Here
+    var form = document.querySelector("form");
+    var nameInput = document.getElementById("name");
+    var categoryInput = document.getElementById("category");
+    var sectorInput = document.getElementById("sector");
+    var priceInput = document.getElementById("price");
+    var quantityInput = document.getElementById("quantity");
+    var addDateInput = document.getElementById("addDate");
+    var tbody = document.querySelector("tbody");
+    var totalprice = document.querySelector("#total-price span");
+    var totPortValue = 0;
+    function addStock(e){
+      e.preventDefault();
+      var name = nameInput.value.trim();
+      var category = categoryInput.value.trim();
+      var sector = sectorInput.value.trim();
+      var price = Number(priceInput.value.trim());
+      var quantity = Number(quantityInput.value.trim());
+      var addDate = addDateInput.value;
+    if(!name||!category||!sector||!price||!quantity||!addDate){
+      alert("fill all input fields");
+      return;
+    }
+    var totalCostPrice = price*quantity;
+    totPortValue+=totalCostPrice;
+    var row = `
+    <tr>
+      <td>${name}</td>
+      <td>${category}</td>
+      <td>${sector}</td>
+      <td>${price}</td>
+      <td>${quantity}</td>
+      <td>${totalCostPrice}</td>
+      <td>${addDate}</td>
+      <td><button class = "delete">Delete</button></td>
+      
+      
+
+      </tr> `;
+      tbody.insertAdjacentHTML("beforeend",row);
+      totalprice.textContent = totPortValue;
+      resetForm();
+
+    }
+    function deleteStocks(e){
+      const target = e.target;
+      if(target.classList.contains("delete")){
+        const row = target.closes("tr");
+        const totalCostPrice=Number(row.children[5].textConetent);
+        totPortValue-=totalCostPrice;
+        row.remove();
+
+       totalprice.textContent = totPortValue;
+      }
+    }
+      function resetForm(){
+       form.reset(); 
+
+      
+
+    }
+    form.addEventListener("submit",addStock);
+    tbody.addEventListener("click",deleteStocks);
+  </script>
+</html>

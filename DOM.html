@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="gettingClicked()">Input</button>
+    <input class="inputClass" type="text">
+    
+</body>
+</html>
+<script>
+    var inputBox = document.getElementsByClassName("inputClass")
+    function gettingClicked(){
+        console.log(inputBox[0].value);
+    }
+    //var no=0;
+   // function gettingClicked(){
+     //   no++;
+       // alert(`I am clicked ${no} times`);
+    //}
+</script>
